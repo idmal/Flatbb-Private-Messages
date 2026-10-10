@@ -1,0 +1,93 @@
+{
+    "id": "messages",
+    "name": "Private Messages",
+    "version": "1.6.0",
+    "description": "Private chat between members, Telegram style: live messages, instant sending, read receipts, edit and recall, real delete, Persian texts and Jalali dates, full screen on phones, blocking. Administrators can read conversations (logged).",
+    "author": "flatbb",
+    "url": "https://www.flatbb.com",
+    "requires": {
+        "flatbb": "0.1.94"
+    },
+    "routes": {
+        "/messages": "messages_page",
+        "/messages/block": "messages_block",
+        "/messages/{name}": "messages_page",
+        "/messages/{name}/send": "messages_send_route",
+        "/messages/{name}/poll": "messages_poll",
+        "/messages/{name}/older": "messages_older",
+        "/messages/{name}/leave": "messages_leave",
+        "/messages/{name}/edit": "messages_edit_route",
+        "/messages/{name}/recall": "messages_recall_route",
+        "/messages-admin/purge": "messages_admin_purge"
+    },
+    "hooks": {
+        "region.header.user_menu": "messages_user_menu",
+        "region.user.profile.actions": "messages_profile_button",
+        "notification.kinds": "messages_notification_kinds",
+        "notifications.rows": "messages_notification_rows",
+        "user.settings_tab": "messages_prefs_tab",
+        "user.prefs_save": "messages_prefs_save"
+    },
+    "admin_pages": {
+        "list": {
+            "label": "Messages",
+            "callback": "messages_admin"
+        }
+    },
+    "assets": {
+        "css": [
+            "messages_css"
+        ],
+        "js": [
+            "messages_js"
+        ]
+    },
+    "settings": {
+        "min_posts": {
+            "type": "number",
+            "label": "Posts a member needs before sending messages",
+            "default": 0,
+            "min": 0,
+            "max": 1000,
+            "help": "Administrators and moderators can always send."
+        },
+        "per_hour": {
+            "type": "number",
+            "label": "Messages a member may send per hour (0 = no limit)",
+            "default": 60,
+            "min": 0,
+            "max": 5000
+        },
+        "edit_minutes": {
+            "type": "number",
+            "label": "A message can be edited for (minutes, 0 = never)",
+            "default": 15,
+            "min": 0,
+            "max": 10080
+        },
+        "recall_minutes": {
+            "type": "number",
+            "label": "A message can be recalled for (minutes, 0 = never)",
+            "default": 2,
+            "min": 0,
+            "max": 10080,
+            "help": "Recalling removes the text for both members; they see that a message was recalled."
+        },
+        "original_days": {
+            "type": "number",
+            "label": "Keep the original text of edited or recalled messages for admins (days, 0 = forever)",
+            "default": 30,
+            "min": 0,
+            "max": 3650,
+            "help": "After this time the original text is erased from the database."
+        },
+        "persian": {
+            "type": "number",
+            "label": "Persian texts, Jalali dates and Persian digits (1 = on, 0 = use the site language files)",
+            "default": 1,
+            "min": 0,
+            "max": 1
+        }
+    },
+    "cron": []
+}
